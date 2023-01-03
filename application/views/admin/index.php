@@ -78,216 +78,96 @@
               Tất cả sinh viên
             </div>
             <div class="card-body">
-                <a href="#addEmpModal" class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>ADD SINH VIÊN</span></a>
+                <div class="table-responsive">  
+                    <br />  
+                    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-info btn-lg">Add</button>  
+                    <br /><br />  
+                    <table id="user_data" class="table table-bordered table-striped">  
+                        <thead>  
+                            <tr>  
+                                <th >MA SV</th>  
+                                <th >Name</th>  
+                                <th >Date</th>
+                                <th >SEX</th> 
+                                <th >DAN TOc</th> 
+                                <th >ADDRESS</th> 
+                                <th >MALOP</th>   
+                                <th >Edit</th>  
+                                <th >Delete</th>  
+                            </tr>  
+                        </thead>  
+                    </table>  
+                </div>
                 
-                <table class="table table-bordered" id="employeeListing" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Mã sinh viên</th>
-                      <th>Họ và tên</th>
-                      <th>Ngày sinh</th>
-                      <th>Giới tính</th>
-                      <th>Dân tộc</th>
-                      <th>Nơi sinh</th>
-                      <th>Lớp</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                    
-                  <tbody id="listRecords">
-                    <?php
-                        $query = $this->db->query('SELECT * FROM sinhvien');
-                        foreach ($query->result_array() as $row) {
-                    ?>
-                    <tr >
-                      <td><?php echo $row["ma_sv"] ?></td>
-                      <td><?php echo $row["hoten_sv"]; ?></td>
-                      <td><?php echo $row["ngay_sinh"]; ?></td>
-                      <td><?php echo $row["gioi_tinh"]; ?></td>
-                      <td><?php echo $row["dan_toc"]; ?></td>
-                      <td><?php echo $row["noi_sinh"]; ?></td>
-                      <td><?php echo $row["ma_lop"]; ?></td>
-                      <td>
-							<a href="#editEmpModal" class="btn btn-info btn-sm editRecord " data-toggle="modal"
-                            data-masv="<?php echo $row["ma_sv"] ?>" 
-                            data-name="<?php echo $row["hoten_sv"] ?>" 
-                            data-ngaysinh="<?php echo $row["ngay_sinh"] ?>" 
-                            data-sex="<?php echo $row["gioi_tinh"] ?>" 
-                            data-dantoc="<?php echo $row["dan_toc"] ?>" 
-                            data-address="<?php echo $row["noi_sinh"] ?>"
-                            data-malop="<?php echo $row["ma_lop"] ?>"
-                            >Edit</a>
-							<a href="#deleteEmpModal" class="btn btn-danger btn-sm deleteRecord" data-toggle="modal" data-masv="<?php echo $row["ma_sv"] ?>">Delete</a>
-					 </td>
-                    </tr>
-                    <?php 
-                        }
-                    ?>
-                  </tbody>
-                </table>
-                <form id="saveEmpForm" method="post">
-                    <div class="modal fade" id="addEmpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">                       
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Mã SV</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="ma_sv" id="ma_sv" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Name</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="hoten_sv" id="hoten_sv" class="form-control" required> 
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Date</label>
-                                        <div class="col-md-10">
-                                            <input type="date" name="ngay_sinh" id="ngay_sinh" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Sex</label>
-                                        <div class="col-md-10">
-                                            <label>
-                                                <input type="radio" name="gioi_tinh" id="gioi_tinh" value="Nam" >
-                                                            Nam
-                                            </label>
-                                            <label>
-                                                <input type="radio" name="gioi_tinh" id="gioi_tinh" value="Nữ">
-                                                            Nữ
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Dân Tộc</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="dan_toc" id="dan_toc" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Address</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="noi_sinh" id="noi_sinh" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Class</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                    
-                <form id="editEmpForm" method="post">
-                    <div class="modal fade" id="editEmpModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Employee</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">                       
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Mã SV</label>
-                                                <div class="col-md-10">
-                                                <input type="text" name="ma_sv" id="ma_sv1" class="form-control" required>
-                                                </div>
+                <div id="userModal" class="modal fade">  
+                    <div class="modal-dialog">  
+                        <form method="post" id="user_form">  
+                                <div class="modal-content">  
+                                    <div class="modal-header">  
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>  
+                                        <h4 class="modal-title">Add User</h4>  
+                                    </div>  
+                                    <div class="modal-body">  
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Mã SV</label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="ma_sv" id="ma_sv" class="form-control" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Name</label>
-                                                <div class="col-md-10">
-                                                <input type="text" name="hoten_sv" id="hoten_sv1" class="form-control" required> 
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Name</label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="hoten_sv" id="hoten_sv" class="form-control" required> 
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Date</label>
-                                                <div class="col-md-10">
-                                                <input type="date" name="ngay_sinh" id="ngay_sinh1" class="form-control" required>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Date</label>
+                                            <div class="col-md-10">
+                                                <input type="date" name="ngay_sinh" id="ngay_sinh" class="form-control" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Sex</label>
-                                                <div class="col-md-10">
-                                                    <label>
-                                                        <input type="radio" name="gioi_tinh" id="gioi_tinh1" value="Nam">
-                                                        Nam
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="gioi_tinh" id="gioi_tinh1" value="Nữ" checked>
-                                                        Nữ
-                                                    </label>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Sex</label>
+                                            <div class="col-md-10">
+                                                <label>
+                                                    <input type="radio" name="gioi_tinh" id="gioi_tinh" value="Nam" >
+                                                                Nam
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="gioi_tinh" id="gioi_tinh" value="Nữ">
+                                                                Nữ
+                                                </label>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Dân Tộc</label>
-                                                <div class="col-md-10">
-                                                <input type="text" name="dan_toc" id="dan_toc1" class="form-control" required>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Dân Tộc</label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="dan_toc" id="dan_toc" class="form-control" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Address</label>
-                                                <div class="col-md-10">
-                                                <input type="text" name="noi_sinh" id="noi_sinh1" class="form-control" required>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Address</label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="noi_sinh" id="noi_sinh" class="form-control" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Class</label>
-                                                <div class="col-md-10">
-                                                <input type="text" name="ma_lop" id="ma_lop1" class="form-control" required>
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Class</label>
+                                            <div class="col-md-10">
+                                                <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
                                             </div>
-                                    </div>
-                                <div class="modal-footer">
-                                    <input type="hidden" name="ma_sv" id="ma_sv" class="form-control">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" id="update" class="btn btn-primary">Update</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <form id="deleteEmpForm" method="post">
-                    <div class="modal fade" id="deleteEmpModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Delete Employee</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <strong>Are you sure to delete this record?</strong>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="hidden" name="ma_sv" id="ma_sv" class="form-control">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-primary">Yes</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                                        </div>  
+                                    </div>  
+                                    <div class="modal-footer"> 
+                                        <input type="hidden" name="user_id" id="user_id" /> 
+                                        <input type="submit" name="action" id="action" class="btn btn-success" value="Add" />  
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                                    </div>  
+                                </div>  
+                        </form>  
+                    </div>  
+                </div> 
+                
             </div>
           </div>
         </div>

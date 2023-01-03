@@ -59,4 +59,4 @@ $route['login-user']['POST'] = 'LoginController/login';
 
 //admin
 $route['admin']['GET'] = 'AdminController/index';
-$route['crud']['GET'] = 'CrudController/index';
+
